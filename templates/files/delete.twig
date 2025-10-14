@@ -1,0 +1,27 @@
+<form action="/files/delete" method="post" class="modal fade" id="deleteFileModal">
+    <input type="hidden" id="deleteFileId" name="id">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header bg-danger text-bg-danger px-3 py-2">
+                <h2 class="h6 modal-title">Delete file</h2>
+            </div>
+            <div class="modal-body px-3 py-2">
+                Are you sure you want to delete the <strong id="deleteFileTitle"></strong> file?<br>This
+                action cannot be undone!
+            </div>
+            <div class="modal-footer px-3 py-2">
+                <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+            </div>
+        </div>
+    </div>
+</form>
+
+{% block scripts %}
+    <script>
+        document.getElementById('deleteFileModal').addEventListener('show.bs.modal', (e) => {
+            document.getElementById('deleteFileId').value = e.relatedTarget.dataset.id;
+            document.getElementById('deleteFileTitle').value = e.relatedTarget.dataset.title;
+        });
+    </script>
+{% endblock %}

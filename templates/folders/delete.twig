@@ -1,0 +1,28 @@
+<form action="/folders/delete" method="post" class="modal fade" id="deleteFolderModal">
+    <input type="hidden" id="deleteFolderId" name="id">
+    <input type="hidden" name="parentId" value="{{ folder.parentId }}">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header bg-danger text-bg-danger px-3 py-2">
+                <h2 class="h6 modal-title">Delete folder</h2>
+            </div>
+            <div class="modal-body px-3 py-2">
+                Are you sure you want to delete the <strong id="deleteFolderName"></strong> folder?<br>This
+                action cannot be undone and will also delete all files and subfolders!
+            </div>
+            <div class="modal-footer px-3 py-2">
+                <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+            </div>
+        </div>
+    </div>
+</form>
+
+{% block scripts %}
+    <script>
+        document.getElementById('deleteFolderModal').addEventListener('show.bs.modal', (e) => {
+            document.getElementById('deleteFolderId').value = e.relatedTarget.dataset.id;
+            document.getElementById('deleteFolderName').value = e.relatedTarget.dataset.name;
+        });
+    </script>
+{% endblock %}

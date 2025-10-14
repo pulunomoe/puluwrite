@@ -1,0 +1,25 @@
+<button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal"
+        data-bs-target="#newFileModal">
+    <i class="bi-file-earmark-plus"></i> New file
+</button>
+
+<form action="/files/create" method="post" class="modal fade" id="newFileModal">
+    <input type="hidden" name="folderId" value="{{ folder.id }}">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header bg-primary text-bg-primary px-3 py-2">
+                <h2 class="h6 modal-title">Create a new file</h2>
+            </div>
+            <div class="modal-body px-3 py-2">
+                <div class="mb-2">
+                    <label for="createFileTitle" class="form-label small">Title</label>
+                    <input type="text" id="createFileTitle" name="title" class="form-control form-control-sm" required>
+                </div>
+            </div>
+            <div class="modal-footer px-3 py-2">
+                <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="submit" class="btn btn-sm btn-primary">Create</button>
+            </div>
+        </div>
+    </div>
+</form>

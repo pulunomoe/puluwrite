@@ -1,0 +1,14 @@
+services:
+  db:
+    image: docker.io/postgres:18-alpine
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=puluwrite
+    ports:
+      - "127.0.0.1:5432:5432"
+
+volumes:
+  db-data:

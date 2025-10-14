@@ -1,0 +1,25 @@
+<button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal"
+        data-bs-target="#newFolderModal">
+    <i class="bi-folder-plus"></i> New folder
+</button>
+
+<form action="/folders/create" method="post" class="modal fade" id="newFolderModal">
+    <input type="hidden" name="parentId" value="{{ folder.id }}">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header bg-primary text-bg-primary px-3 py-2">
+                <h2 class="h6 modal-title">Create a new folder</h2>
+            </div>
+            <div class="modal-body px-3 py-2">
+                <div class="mb-2">
+                    <label for="createFolderName" class="form-label small">Folder name</label>
+                    <input type="text" id="createFolderName" name="name" class="form-control form-control-sm" required>
+                </div>
+            </div>
+            <div class="modal-footer px-3 py-2">
+                <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="submit" class="btn btn-sm btn-primary">Create</button>
+            </div>
+        </div>
+    </div>
+</form>

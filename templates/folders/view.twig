@@ -1,0 +1,138 @@
+{% extends 'base.twig' %}
+
+{% block main %}
+
+    <div class="container-lg border-bottom mb-3 pb-3 px-4 d-flex flex-row justify-content-between align-items-center gap-2">
+        <ol class="breadcrumb mb-0">
+            {% if parents %}
+                <li class="breadcrumb-item">
+                    <i class="bi-house me-1"></i>
+                    <a href="/">
+                        Home
+                    </a>
+                </li>
+                {% for parent in parents %}
+                    {% if not loop.last %}
+                        <li class="breadcrumb-item">
+                            <i class="bi-folder me-1"></i>
+                            <a href="/folders/{{ parent.id }}">
+                                {{ parent.name }}
+                            </a>
+                        </li>
+                    {% else %}
+                        <li class="breadcrumb-item active">
+                            <i class="bi-folder"></i> {{ parent.name }}
+                        </li>
+                    {% endif %}
+                {% endfor %}
+            {% else %}
+                <li class="breadcrumb-item active">
+                    <i class="bi-house"></i> Home
+                </li>
+            {% endif %}
+        </ol>
+        <div class="d-flex flex-row gap-2">
+            {% include "folders/create.twig" %}
+            {% if parents %}
+                {% include "files/create.twig" %}
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="container-lg">
+        <table id="foldersTable" class="table table-sm">
+            <thead>
+            <tr>
+                <th>Name</th>
+                {% if parents %}
+                    <th width="1%">Updated</th>
+                {% endif %}
+                <th width="1%"></th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for subfolder in subfolders %}
+                <tr class="align-middle">
+                    <td>
+                        <i class="bi-folder"></i>
+                        <a href="/folders/{{ subfolder.id }}">
+                            {{ subfolder.name }}
+                        </a>
+                    </td>
+                    {% if parents %}
+                        <td></td>
+                    {% endif %}
+                    <td>
+                        <button type="button" class="btn btn-sm btn-outline-secondary mx-2"
+                                data-bs-toggle="dropdown">
+                            <i class="bi-three-dots-vertical"></i>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li class="dropdown-item" style="cursor: pointer" data-bs-toggle="modal"
+                                data-bs-target="#updateFolderModal"
+                                data-id="{{ subfolder.id }}" data-name="{{ subfolder.name }}">
+                                <i class="bi-pencil-square"></i> Rename
+                            </li>
+                            <li class="dropdown-divider"></li>
+                            <li class="dropdown-item" style="cursor: pointer" data-bs-toggle="modal"
+                                data-bs-target="#deleteFolderModal"
+                                data-id="{{ subfolder.id }}" data-name="{{ subfolder.name }}">
+                                <i class="bi-trash"></i> Delete
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+            {% endfor %}
+            {% for file in files %}
+                <tr class="align-middle">
+                    <td>
+                        <i class="bi-file-earmark-text"></i>
+                        <a href="/files/{{ file.id }}">
+                            {{ file.title }}
+                        </a>
+                    </td>
+                    <td class="text-nowrap">
+                        {{ file.updated|timeago }}
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-sm btn-outline-secondary mx-2"
+                                data-bs-toggle="dropdown">
+                            <i class="bi-three-dots-vertical"></i>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li class="dropdown-item" style="cursor: pointer" data-bs-toggle="modal"
+                                data-bs-target="#updateFileModal"
+                                data-id="{{ file.id }}" data-title="{{ file.title }}">
+                                <i class="bi-pencil-square"></i> Rename
+                            </li>
+                            <li class="dropdown-divider"></li>
+                            <li class="dropdown-item" style="cursor: pointer" data-bs-toggle="modal"
+                                data-bs-target="#deleteFileModal"
+                                data-id="{{ file.id }}" data-title="{{ file.title }}">
+                                <i class="bi-trash"></i> Delete
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    {% include "folders/update.twig" %}
+    {% include "folders/delete.twig" %}
+
+    {% include "files/update.twig" %}
+    {% include "files/delete.twig" %}
+
+{% endblock %}
+
+{% block scripts %}
+    <script>
+        new DataTable('#foldersTable', {
+            columnDefs: [
+                {target: -1, orderable: false}
+            ],
+        });
+    </script>
+{% endblock %}
