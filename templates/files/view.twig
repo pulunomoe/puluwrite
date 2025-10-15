@@ -26,8 +26,11 @@
             <h1 class="h2 mb-3">
                 {{ file.title }}
             </h1>
-            <div id="save" class="text-end" style="cursor: pointer">
-                Last saved: <span id="lastSaved">none</span>
+            <div class="d-flex flex-row gap-4">
+                <div>Words : <span id="wordCount"></span></div>
+                <div id="save" class="text-end" style="cursor: pointer">
+                    Last saved: <span id="lastSaved">none</span>
+                </div>
             </div>
         </div>
         <div class="btn-toolbar mb-3 d-none d-md-block">
@@ -99,6 +102,7 @@
         import {Editor} from 'https://esm.sh/@tiptap/core';
         import StarterKit from 'https://esm.sh/@tiptap/starter-kit';
         import TextAlign from 'https://esm.sh/@tiptap/extension-text-align';
+        import CharacterCount from 'https://esm.sh/@tiptap/extension-character-count';
         import {format} from "https://cdn.jsdelivr.net/npm/date-fns/format.mjs";
 
         const editor = new Editor({
@@ -106,6 +110,7 @@
             extensions: [
                 StarterKit,
                 TextAlign,
+                CharacterCount,
             ],
             content: {{ file.content ? file.content|raw : '{}' }},
         });
@@ -168,6 +173,7 @@
             setBtnState(alignJustifyButton, editor.isActive({textAlign: 'justify'}));
             setBtnState(bulletListButton, editor.isActive('bulletList'));
             setBtnState(orderedListButton, editor.isActive('orderedList'));
+            document.getElementById('wordCount').innerText = editor.storage.characterCount.words();
         });
 
         editor.commands.focus();
