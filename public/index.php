@@ -15,6 +15,8 @@ use Slim\Views\TwigMiddleware;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
+session_set_cookie_params(7 * 24 * 60 * 60);
+
 function debug(mixed $value): void
 {
     header('Content-Type: application/json');
