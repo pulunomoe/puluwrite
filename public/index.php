@@ -40,8 +40,8 @@ $auth = new AuthMiddleware($container->get(ResponseFactoryInterface::class));
 $app->get('/login', [UserController::class, 'login']);
 $app->post('/login', [UserController::class, 'loginPost']);
 $app->get('/logout', [UserController::class, 'logout']);
-$app->get('/password', [UserController::class, 'password']);
-$app->post('/password', [UserController::class, 'passwordPost']);
+$app->get('/password', [UserController::class, 'password'])->add($auth);
+$app->post('/password', [UserController::class, 'passwordPost'])->add($auth);
 
 $app->get('/', [FolderController::class, 'view'])->add($auth);
 $app->get('/folders[/{id}]', [FolderController::class, 'view'])->add($auth);
