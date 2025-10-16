@@ -49,7 +49,7 @@ readonly class FileService
         $this->validateFolderOwnership($createFileDto->folderId);
 
         $id = Ulid::generate(true);
-        $this->fileRepository->create(
+        $this->fileRepository->insert(
             $id,
             $createFileDto->folderId,
             $createFileDto->title,

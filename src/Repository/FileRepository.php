@@ -26,7 +26,7 @@ readonly class FileRepository extends Repository
         return $stmt->fetch();
     }
 
-    public function create(
+    public function insert(
         string $id,
         string $folderId,
         string $title,

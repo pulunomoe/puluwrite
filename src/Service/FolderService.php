@@ -61,7 +61,7 @@ readonly class FolderService
         }
 
         $id = Ulid::generate(true);
-        $this->folderRepository->create(
+        $this->folderRepository->insert(
             $id,
             $_SESSION['user']['id'],
             $createFolderDto->parentId,

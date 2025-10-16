@@ -33,6 +33,11 @@ readonly class UserService
         $_SESSION['user'] = $user;
     }
 
+    public function logout(): void
+    {
+        session_destroy();
+    }
+
     /**
      * @throws UserException
      */

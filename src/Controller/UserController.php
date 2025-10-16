@@ -38,8 +38,9 @@ readonly class UserController extends Controller
 
     public function logout(
         Response $response,
+        UserService $userService,
     ): ResponseInterface {
-        session_destroy();
+        $userService->logout();
 
         return $this->redirectWithSuccess($response, '/login', 'Logout successful');
     }

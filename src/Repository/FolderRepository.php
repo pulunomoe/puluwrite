@@ -59,7 +59,7 @@ readonly class FolderRepository extends Repository
         return $stmt->fetch();
     }
 
-    public function create(
+    public function insert(
         string $id,
         string $userId,
         ?string $parentId,
