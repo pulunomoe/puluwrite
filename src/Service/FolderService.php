@@ -79,6 +79,11 @@ readonly class FolderService
     ): ?string {
         $folder = $this->readOne($updateFolderDto->id);
 
+        $this->folderRepository->update(
+            $updateFolderDto->id,
+            $updateFolderDto->name,
+        );
+
         return $folder['parent_id'];
     }
 
