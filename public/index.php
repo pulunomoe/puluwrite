@@ -1,5 +1,6 @@
 <?php
 
+session_set_cookie_params(7 * 24 * 60 * 60);
 session_start();
 
 use App\Controller\FileController;
@@ -14,8 +15,6 @@ use Slim\Views\Twig;
 use Slim\Views\TwigMiddleware;
 
 require_once __DIR__ . '/../vendor/autoload.php';
-
-session_set_cookie_params(7 * 24 * 60 * 60);
 
 function debug(mixed $value): void
 {
@@ -41,7 +40,6 @@ $auth = new AuthMiddleware($container->get(ResponseFactoryInterface::class));
 $app->get('/login', [UserController::class, 'login']);
 $app->post('/login', [UserController::class, 'loginPost']);
 $app->get('/logout', [UserController::class, 'logout']);
-
 $app->get('/password', [UserController::class, 'password']);
 $app->post('/password', [UserController::class, 'passwordPost']);
 
